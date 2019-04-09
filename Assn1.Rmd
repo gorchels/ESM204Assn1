@@ -1,0 +1,25 @@
+---
+title: "EconAssn1"
+author: "Madeline Gorchels"
+date: "4/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Set Up
+
+```{r}
+library(janitor)
+library(tidyverse)
+```
+
+```{r}
+shark = read_csv("HW1_Data.csv") %>% 
+  clean_names()
+#cost is in millions of $ of protecting 100% of the pixel
+#conservation budget is 200 million
+```
+
