@@ -11,15 +11,39 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###Set Up
 
-```{r}
+```{r, include=FALSE}
 library(janitor)
 library(tidyverse)
 ```
 
-```{r}
+```{r, include=FALSE}
 shark = read_csv("HW1_Data.csv") %>% 
-  clean_names()
+  clean_names() %>% 
+  mutate(cprt = cost_of_pixel/tuna_suitability) %>% 
+  mutate(cprs = cost_of_pixel/shark_suitability)
+
 #cost is in millions of $ of protecting 100% of the pixel
 #conservation budget is 200 million
+
+#i = index for the species (shark vs. tuna), 
+#𝑓𝑓𝑗𝑗 is the fraction of pixel j that is protected (typically
+#1.0), 𝑠𝑠𝑖𝑖𝑖𝑖 is the suitability value for species i in pixel j, the summation is over all pixels in your reserve
+#network, and the parameter 𝛽𝛽 = 0.6. Assume that if the entire area was conserved, the probability of
+#survival would be just exactly equal to 1.0; 
+
+```
+
+$P(survival) = ai*(\sum_{jeR} f_i*s_{ij})^B$
+
+a) since the mean cost is 12.1 million dollars per pixel, and we only have a budget of $200 million only 16 high impact pixels could be protected. However, if there are more pixels that can be protected with lower costs than average but the same suitability then more than 16 pixels could be protected. 
+```{r}
+sum_sharks = shark %>% 
+  summarise(
+    mean_cost = mean(cost_of_pixel),
+    mean_t_s = mean(tuna_suitability),
+    mean_s_s = mean(shark_suitability),
+    mean_cpr_t = mean(cprt),
+    mean_cpr_s = mean(cprs)
+  )
 ```
 
