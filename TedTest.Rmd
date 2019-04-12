@@ -1,0 +1,53 @@
+---
+title: "TedTest"
+author: "Madeline Gorchels"
+date: "4/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+raw_df <- read_csv("HW1_Data.csv") %>% 
+  clean_names() %>% 
+  mutate(tuna = tuna_suitability) %>% 
+  mutate(shark = shark_suitability) %>% 
+  mutate(cost = cost_of_pixel)
+```
+
+```{r}
+
+alpha_tuna <- 1/((sum(raw_df$tuna))^0.6)
+alpha_shark <- 1/((sum(raw_df$shark))^0.6)
+
+```
+
+```{r}
+
+total_cost = 0
+total_tuna_score = 0
+total_shark_score = 0
+pixel = 1:485
+
+
+while (total_cost < 200)
+{
+  a = floor(runif(1, min=1, max=485))
+  pixel = pixel[!pixel %in% a]
+  print(paste0("adding pixel...:", " ", a))
+  cost_df <- filter(raw_df, pixel == a)
+  total_cost = total_cost + cost_df$cost
+  total_tuna_score = total_tuna_score + cost_df$tuna
+  total_shark_score = total_shark_score + cost_df$shark
+  print("the current cost, tuna score, and shark score are:")
+  print(paste0(total_cost, " ", total_tuna_score, " ", total_shark_score))
+}
+```
+
