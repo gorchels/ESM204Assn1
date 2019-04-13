@@ -47,3 +47,22 @@ sum_sharks = shark %>%
   )
 ```
 
+Creating a figure for part d
+
+```{r}
+
+
+b = 0.6
+as = 0.017773607
+at = 0.01604304
+
+
+random = read_csv("random.csv") %>% 
+  mutate(t_prob = at*(tuna_suit)^b) %>% 
+  mutate(s_prob = as*(shark_suit)^b)
+
+ggplot(random)+
+  geom_point(aes(x = t_prob, y = s_prob))+
+  theme_classic()
+```
+
