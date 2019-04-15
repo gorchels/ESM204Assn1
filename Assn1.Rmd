@@ -63,6 +63,7 @@ random = read_csv("random.csv") %>%
 
 ggplot(random)+
   geom_point(aes(x = t_prob, y = s_prob))+
+  geom_point(aes(x = t_prob, y = s_prob, color = scenario))+
   theme_classic()
 ```
 
