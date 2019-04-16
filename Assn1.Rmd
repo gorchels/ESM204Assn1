@@ -61,7 +61,7 @@ random = read_csv("random.csv") %>%
   mutate(t_prob = at*(tuna_suit)^b) %>% 
   mutate(s_prob = as*(shark_suit)^b)
 
-<<<<<<< HEAD
+
 planned_graph = random %>% 
   filter(scenario == "planned") %>% 
   ggplot()+
@@ -86,11 +86,7 @@ random_graph = random %>%
 random_graph
 
 combined_graph = random %>% 
-  ggplot()+
-=======
-ggplot(random)+
-  geom_point(aes(x = t_prob, y = s_prob))+
->>>>>>> 2d71d173b825368b680a9017bc39c8596def7500
+  ggplot(random)+
   geom_point(aes(x = t_prob, y = s_prob, color = scenario))+
   theme_classic()+
   labs(y = "Probabilty of Shark Survival", x = "Probability of Tuna Survival", color = "Scenario")+
