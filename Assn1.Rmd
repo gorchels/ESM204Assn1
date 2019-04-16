@@ -61,8 +61,38 @@ random = read_csv("random.csv") %>%
   mutate(t_prob = at*(tuna_suit)^b) %>% 
   mutate(s_prob = as*(shark_suit)^b)
 
-ggplot(random)+
+planned_graph = random %>% 
+  filter(scenario == "planned") %>% 
+  ggplot()+
+  geom_point(aes(x = t_prob, y = s_prob))+
+  scale_color_manual("black")+
+  theme_classic()+
+  geom_smooth(aes(x = t_prob, y = s_prob), se=FALSE)+
+  labs(y = "Probabilty of Shark Survival", x = "Probability of Tuna Survival")
+  
+planned_graph
+
+
+random_graph = random %>% 
+  filter(scenario == "random") %>% 
+  ggplot()+
+  geom_point(aes(x = t_prob, y = s_prob))+
+  scale_color_manual("black")+
+  theme_classic()+
+  geom_smooth(aes(x = t_prob, y = s_prob), se=FALSE)+
+  labs(y = "Probabilty of Shark Survival", x = "Probability of Tuna Survival")
+  
+random_graph
+
+combined_graph = random %>% 
+  ggplot()+
   geom_point(aes(x = t_prob, y = s_prob, color = scenario))+
-  theme_classic()
+  theme_classic()+
+  labs(y = "Probabilty of Shark Survival", x = "Probability of Tuna Survival", color = "Scenario")+
+  scale_color_manual(values=c("blue", "red"), labels = c("Designed", "Random"))+
+  theme(legend.position=c(0.15, 0.85))
+  
+combined_graph
+
 ```
 
